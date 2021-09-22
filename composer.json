@@ -3,9 +3,9 @@
     "description": "PHP interface for EventUp API",
     "version": "0.0.1",
     "require": {
-        "php": "^7.1",
-        "guzzlehttp/guzzle": "^6.5.2",
-        "karriere/json-decoder": "^2.2.1",
+        "php": "^7.3",
+        "guzzlehttp/guzzle": "^7.3.0",
+        "karriere/json-decoder": "^4.0.3",
         "ext-json": "*"
     },
     "authors": [{
@@ -14,7 +14,7 @@
     }],
     "autoload": {
         "psr-4": {
-            "PHPFECP\\": "src/"
+            "PHPEU\\": "src/"
         }
     }
 }
