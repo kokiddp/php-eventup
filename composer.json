@@ -1,0 +1,20 @@
+{
+    "name": "kokiddp/php-eventup",
+    "description": "PHP interface for EventUp API",
+    "version": "0.0.1",
+    "require": {
+        "php": "^7.1",
+        "guzzlehttp/guzzle": "^6.5.2",
+        "karriere/json-decoder": "^2.2.1",
+        "ext-json": "*"
+    },
+    "authors": [{
+        "name": "Gabriele Coquillard",
+        "email": "gabriele.coquillard@gmail.com"
+    }],
+    "autoload": {
+        "psr-4": {
+            "PHPFECP\\": "src/"
+        }
+    }
+}
