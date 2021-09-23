@@ -50,13 +50,14 @@ class EUClient {
         $this->token = $token;
 
         $this->client = new Client([
-			'base_uri' => $this->baseUrl,
-            'headers' => [
+			'base_uri'      => $this->baseUrl,            
+            'http_errors'   => false,
+            'verify'        => false,
+            'headers'       => [
 				'content-type'  => 'application/json',
                 'accept'        => 'application/json',
                 'Authorization' => 'Token token="' . $this->token . '"'
-            ],
-            'http_errors' => false,
+            ]
         ]);
         
         $this->decoder = new JsonDecoder();
