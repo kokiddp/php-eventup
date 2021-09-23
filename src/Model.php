@@ -59,7 +59,7 @@ class EUResponse {
      * @return bool
      */
     public function GetErrorMessage() {
-        if ( $this->status == 500 )
+        if ( $this->status == 500 || $this->status == 404 )
             return $this->error;
         else
             return $this->message;
@@ -94,17 +94,65 @@ class EUParticipantResponse extends EUResponse {
     /**
      * The participant's representation
      *
-     * @var EURegisterParticipant
+     * @var EUParticipantResponseEntity
      */
     public $participant;
 
     /**
      * Get the participant
      *
-     * @return EULoginRegisterParticipant
+     * @return EUParticipantResponseEntity
      */
     public function GetParticipant(){
         return $this->participant;
+    }
+}
+
+/**
+ * Class EUNewsResponse
+ * 
+ * An instance of this class will be returned after GetNews call
+ */
+class EUNewsResponse extends EUResponse {
+    
+    /**
+     * The News array
+     *
+     * @var EUNews[]
+     */
+    public $news;
+
+    /**
+     * Get the News array
+     *
+     * @return EUNews[]
+     */
+    public function GetNews(){
+        return $this->news;
+    }
+}
+
+/**
+ * Class EUNewsDetailResponse
+ * 
+ * An instance of this class will be returned after GetNewsDetail call
+ */
+class EUNewsDetailResponse extends EUResponse {
+    
+    /**
+     * The News
+     *
+     * @var EUNews
+     */
+    public $result;
+
+    /**
+     * Get the News
+     *
+     * @return EUNews
+     */
+    public function GetNews(){
+        return $this->result;
     }
 }
 
@@ -150,6 +198,13 @@ class EUCustomField {
  */
 class EUParticipantRequestEntity {
     
+    /**
+     * Participant's ID
+     *
+     * @var int
+     */
+    public $id;
+
     /**
      * Participant's Name
      *
@@ -245,13 +300,6 @@ class EUParticipantRequestEntity {
  * Participant's representation after Participant related calls
  */
 class EUParticipantResponseEntity extends EUParticipantRequestEntity {
-    
-    /**
-     * Participant's ID
-     *
-     * @var int
-     */
-    public $id;
 
     /**
      * Participant's coupled ID
@@ -350,4 +398,219 @@ class EUParticipantResponseEntity extends EUParticipantRequestEntity {
      * @var string
      */
     public $token;    
+}
+
+/**
+ * Class EUImage
+ * 
+ * Event image
+ */
+class EUImage {
+
+    /**
+     * URL for iPhone
+     *
+     * @var string
+     */
+    public $iphone;
+
+    /**
+     * URL for iPhone@2x
+     *
+     * @var string
+     */
+    public $iphone2x;
+
+    /**
+     * URL for iPad
+     *
+     * @var string
+     */
+    public $ipad;
+
+    /**
+     * URL for iPad@2x
+     *
+     * @var string
+     */
+    public $ipad2x;
+}
+
+/**
+ * Class EUAuthor
+ * 
+ * Comment Author
+ */
+class EUAuthor {
+
+    /**
+     * Author ID
+     *
+     * @var int
+     */
+    public $id;
+
+    /**
+     * Author Name
+     *
+     * @var string
+     */
+    public $name;
+
+    /**
+     * Author Surname
+     *
+     * @var string
+     */
+    public $surname;
+    
+    /**
+     * Author Username
+     *
+     * @var string
+     */
+    public $username;
+
+    /**
+     * Author Company
+     *
+     * @var string
+     */
+    public $company;
+}
+
+/**
+ * Class EUComment
+ * 
+ * News Comment
+ */
+class EUComment {
+
+    /**
+     * Comment ID
+     *
+     * @var int
+     */
+    public $id;
+
+    /**
+     * Comment content
+     *
+     * @var string
+     */
+    public $content;
+
+    /**
+     * Comment date string
+     *
+     * @var string
+     */
+    public $date;
+
+    /**
+     * Comment date
+     *
+     * @var DateTime
+     */
+    public $created_at;
+
+    /**
+     * Comment Author
+     *
+     * @var EUAuthor
+     */
+    public $author; //Author
+}
+
+/**
+ * Class EUCondition
+ * 
+ * News Condition
+ */
+class EUCondition {
+
+    /**
+     * Condition type
+     *
+     * @var mixed
+     */
+    public $type;
+}
+
+/**
+ * Class EUNews
+ * 
+ * News representation
+ */
+class EUNews {
+
+    /**
+     * News ID
+     *
+     * @var int
+     */
+    public $id;
+
+    /**
+     * News title
+     *
+     * @var string
+     */
+    public $title;
+
+    /**
+     * News description
+     *
+     * @var string
+     */
+    public $description;
+
+    /**
+     * News publication date
+     *
+     * @var DateTime
+     */
+    public $data_pubblicazione;
+
+    /**
+     * News featured state
+     *
+     * @var bool
+     */
+    public $featured;
+
+    /**
+     * News image
+     *
+     * @var EUImage
+     */
+    public $image;
+
+    /**
+     * News likes count
+     *
+     * @var int
+     */
+    public $likes;
+
+    /**
+     * News user like
+     *
+     * @var bool
+     */
+    public $user_like;
+
+    /**
+     * News comments
+     *
+     * @var EUComment[]
+     */
+    public $comments;
+
+    /**
+     * News condition
+     *
+     * @var EUCondition
+     */
+    public $condition;
 }

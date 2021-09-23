@@ -60,8 +60,11 @@ class EUClient {
         ]);
         
         $this->decoder = new JsonDecoder();
-        $this->decoder->register( new EULoginRegisterParticipantResponseTransformer() );
+        $this->decoder->register( new EUParticipantResponseTransformer() );
         $this->decoder->register( new EUParticipantResponseEntityTransformer() );
+        $this->decoder->register( new EUNewsResponseTransformer() );
+        $this->decoder->register( new EUCommentTransformer() );
+        $this->decoder->register( new EUNewsTransformer() );
     }
 
     /**
@@ -69,6 +72,7 @@ class EUClient {
      *
      * @param int|string $eventId
      * @param string $username
+     * @param string $locale (optional)
      * @return bool
      */
     public function IsUsernameAvailable( $eventId, $username, $locale = 'en' ) {
@@ -91,6 +95,7 @@ class EUClient {
      *
      * @param int|string $eventId
      * @param EUParticipantRequestEntity $participant
+     * @param string $locale (optional)
      * @return EUParticipantResponse
      */
     public function RegisterParticipant( $eventId, $participant, $locale = 'en' ) {
@@ -111,6 +116,7 @@ class EUClient {
      * @param int|string $eventId
      * @param string $username
      * @param string $password
+     * @param string $locale (optional)
      * @return EUParticipantResponse
      */
     public function LoginParticipant( $eventId, $username, $password, $locale = 'en' ) {
@@ -130,6 +136,7 @@ class EUClient {
      *
      * @param int|string $eventId
      * @param Participant $participant
+     * @param string $locale (optional)
      * @return EUParticipantResponse
      */
     public function UpdateParticipant( $eventId, $participant, $locale = 'en' ) {
@@ -149,7 +156,9 @@ class EUClient {
      *
      * @param int|string $eventId
      * @param string $username
-     * @param string $password
+     * @param string $oldpassword
+     * @param string $newpassword
+     * @param string $locale (optional)
      * @return EUParticipantResponse
      */
     public function ChangeParticipantPassword( $eventId, $username, $oldpassword, $newpassword, $locale = 'en' ) {
@@ -162,6 +171,43 @@ class EUClient {
         $body = $response->getBody();
         $body_contents = $body->getContents();
         return $this->decoder->decode( $body_contents, EUParticipantResponse::class );
+    }
+
+    /**
+     * Get News list
+     *
+     * @param int|string $eventId
+     * @param string $locale (optional)
+     * @return bool
+     */
+    public function GetNews( $eventId, $locale = 'en' ) {
+        $response = $this->client->request(
+            'GET',
+            $eventId . '/news?locale=' . $locale
+        );
+
+        $body = $response->getBody();
+        $body_contents = $body->getContents();
+        return $this->decoder->decode( $body_contents, EUNewsResponse::class );
+    }
+
+    /**
+     * Get News detail
+     *
+     * @param int|string $eventId
+     * @param int|string $newsId
+     * @param string $locale (optional)
+     * @return bool
+     */
+    public function GetNewsDetail( $eventId, $newsId, $locale = 'en' ) {
+        $response = $this->client->request(
+            'GET',
+            'news/' . $eventId . '/' . $newsId . '?locale=' . $locale
+        );
+
+        $body = $response->getBody();
+        $body_contents = $body->getContents();
+        return $this->decoder->decode( $body_contents, EUNewsDetailResponse::class );
     }
 
 }

@@ -19,16 +19,15 @@ $participant = new EUParticipantRequestEntity(
     "kotuko",
     array(
         new EUCustomField(
-            "active",
-            true
+            "enabled",
+            false
         )
     )
 );
 echo json_encode( $participant ) . PHP_EOL;
 
-
 //IsUsernameAvailable
-$isUsernameAvailable = $client->IsUsernameAvailable( $event_id, 'test.user' );
+$isUsernameAvailable = $client->IsUsernameAvailable( $event_id, 'test.user3' );
 if ( $isUsernameAvailable->IsSuccess() ) {
     echo $isUsernameAvailable->GetMessage() . PHP_EOL;    
 
@@ -56,11 +55,14 @@ else {
     echo $loginParticipant->GetErrorMessage() . PHP_EOL;
 }
 
-/*
-
 //UpdateParticipant
-$participant->name = "Di Prova";
-$participant->surname = "Utente";
+$participant->id = $loginParticipant->GetParticipant()->id;
+$participant->custom_fields = array(
+    new EUCustomField(
+        "enabled",
+        true
+    )
+);
 $updateParticipant = $client->UpdateParticipant( $event_id, $participant );
 if ( $updateParticipant->IsSuccess() ) {
     echo $updateParticipant->GetMessage() . PHP_EOL;
@@ -80,4 +82,18 @@ else {
     echo $changePassword->GetErrorMessage() . PHP_EOL;
 }
 
-*/
+//LoginParticipant
+$loginParticipant = $client->LoginParticipant( $event_id, $participant->username, 'okutok' );
+if ( $loginParticipant->IsSuccess() ) {
+    echo $loginParticipant->GetMessage() . PHP_EOL;
+    echo json_encode( $loginParticipant->GetParticipant() ) . PHP_EOL;
+}
+else {
+    echo $loginParticipant->GetErrorMessage() . PHP_EOL;
+}
+
+$news = $client->GetNews( $event_id );
+echo json_encode( $news->GetNews() ) . PHP_EOL;
+
+$pieceOfNews = $client->GetNewsDetail( $event_id, $news->GetNews()[0]->id );
+echo json_encode( $pieceOfNews->GetNews() ) . PHP_EOL;
