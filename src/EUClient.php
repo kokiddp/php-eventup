@@ -178,7 +178,7 @@ class EUClient {
      *
      * @param int|string $eventId
      * @param string $locale (optional)
-     * @return bool
+     * @return EUNewsResponse
      */
     public function GetNews( $eventId, $locale = 'en' ) {
         $response = $this->client->request(
@@ -197,7 +197,7 @@ class EUClient {
      * @param int|string $eventId
      * @param int|string $newsId
      * @param string $locale (optional)
-     * @return bool
+     * @return EUNewsDetailResponse
      */
     public function GetNewsDetail( $eventId, $newsId, $locale = 'en' ) {
         $response = $this->client->request(
