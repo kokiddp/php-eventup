@@ -66,6 +66,8 @@ class EUClient {
         $this->decoder->register( new EUNewsResponseTransformer() );
         $this->decoder->register( new EUCommentTransformer() );
         $this->decoder->register( new EUNewsTransformer() );
+        $this->decoder->register( new EUNewsResponseTransformer() );
+        $this->decoder->register( new EUNewsDetailResponseTransformer() );
     }
 
     /**
