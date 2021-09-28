@@ -14,9 +14,9 @@ $client = new EUClient( $baseUrl, $token );
 $participant = new EUParticipantRequestEntity(
     "Test",
     "User",
-    "test.user@kotuko.it",
-    "test.user",
-    "kotuko",
+    "acxcswrwxvrcxunzuc@mrvpt.com",
+    "pippo",
+    "123456789",
     array(
         new EUCustomField(
             "enabled",
@@ -28,8 +28,7 @@ echo json_encode( $participant ) . PHP_EOL;
 
 //IsUsernameAvailable
 $isUsernameAvailable = $client->IsUsernameAvailable( $event_id, 'test.user3' );
-if ( $isUsernameAvailable->IsSuccess() ) {
-    echo $isUsernameAvailable->GetMessage() . PHP_EOL;    
+if ( $isUsernameAvailable ) {
 
     //RegisterParticipant
     $registerParticipant = $client->RegisterParticipant( $event_id, $participant );
@@ -40,9 +39,6 @@ if ( $isUsernameAvailable->IsSuccess() ) {
     else {
         echo $registerParticipant->GetErrorMessage() . PHP_EOL;
     }
-}
-else {
-    echo $isUsernameAvailable->GetErrorMessage() . PHP_EOL;
 }
 
 //LoginParticipant
@@ -90,6 +86,14 @@ if ( $loginParticipant->IsSuccess() ) {
 }
 else {
     echo $loginParticipant->GetErrorMessage() . PHP_EOL;
+}
+
+$resetPassword = $client->ResetParticipantPassword( $event_id, $loginParticipant->GetParticipant()->email );
+if ( $resetPassword->IsSuccess() ) {
+    echo $resetPassword->GetMessage() . PHP_EOL;
+}
+else {
+    echo $resetPassword->GetErrorMessage() . PHP_EOL;
 }
 
 $news = $client->GetNews( $event_id );

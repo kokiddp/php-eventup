@@ -325,7 +325,7 @@ class EUParticipantResponseEntity extends EUParticipantRequestEntity {
     /**
      * Participant's registration date
      *
-     * @var DateTime
+     * @var \DateTime
      */
     public $registration_date;
 
@@ -510,7 +510,7 @@ class EUComment {
     /**
      * Comment date
      *
-     * @var DateTime
+     * @var \DateTime
      */
     public $created_at;
 
@@ -568,7 +568,7 @@ class EUNews {
     /**
      * News publication date
      *
-     * @var DateTime
+     * @var \DateTime
      */
     public $data_pubblicazione;
 

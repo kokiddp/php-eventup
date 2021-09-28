@@ -177,6 +177,26 @@ class EUClient {
     }
 
     /**
+     * Reset Participant's Password
+     *
+     * @param int|string $eventId
+     * @param string $email
+     * @param string $locale (optional)
+     * @return EUResponse
+     */
+    public function ResetParticipantPassword( $eventId, $email, $locale = 'en' ) {
+        $response = $this->client->request(
+            'POST',
+            'attendees/forgot_password/' . $eventId . '?locale=' . $locale,
+            ['body' => '{"participant":{"email":"' . $email . '"}}']
+        );
+
+        $body = $response->getBody();
+        $body_contents = $body->getContents();
+        return $this->decoder->decode( $body_contents, EUResponse::class );
+    }
+
+    /**
      * Get News list
      *
      * @param int|string $eventId
