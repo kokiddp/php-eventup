@@ -5,7 +5,7 @@ use PHPEU\EUClient;
 use PHPEU\EUParticipantRequestEntity;
 use PHPEU\EUCustomField;
 
-$token = '767dffb9ffb6fb30a3dc7eb7e985e1f8';
+$token = '';
 $baseUrl = 'https://inbellezza-staging.kotukodev.it/api/business/v1/';
 $event_id = 2;
 
